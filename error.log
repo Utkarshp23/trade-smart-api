@@ -1,0 +1,5 @@
+2024-11-27 21:42:00.020 [main] ERROR c.angelbroking.smartapi.SmartConnect - JSONObject["data"] is not a JSONObject (class org.json.JSONObject$Null : null).
+2024-11-27 21:43:24.086 [main] ERROR c.angelbroking.smartapi.SmartConnect - JSONObject["data"] is not a JSONObject (class org.json.JSONObject$Null : null).
+2024-11-27 21:52:01.999 [main] ERROR c.angelbroking.smartapi.SmartConnect - JSONObject["data"] is not a JSONObject (class org.json.JSONObject$Null : null).
+2024-11-27 21:56:57.820 [main] ERROR c.angelbroking.smartapi.SmartConnect - JSONObject["data"] is not a JSONObject (class org.json.JSONObject$Null : null).
+2024-11-27 21:57:16.841 [main] ERROR c.angelbroking.smartapi.SmartConnect - JSONObject["data"] is not a JSONObject (class org.json.JSONObject$Null : null).
