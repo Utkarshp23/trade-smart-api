@@ -1,9 +1,11 @@
 package org.market.trade.service;
 
+import com.angelbroking.smartapi.smartTicker.SmartWebsocket;
 import com.angelbroking.smartapi.smartstream.models.ExchangeType;
 import com.angelbroking.smartapi.smartstream.models.SmartStreamSubsMode;
 import com.angelbroking.smartapi.smartstream.models.TokenID;
 import com.angelbroking.smartapi.smartstream.ticker.SmartStreamTicker;
+import com.angelbroking.smartapi.ticker.SmartAPITicker;
 import com.neovisionaries.ws.client.WebSocketException;
 import org.market.trade.component.BrokerStreamListener;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,8 @@ public class BrokerStreamingService {
 
     public void startStreaming(String clientId, String feedToken) {
         SmartStreamTicker smartStreamTicker = new SmartStreamTicker(clientId, feedToken, streamListener);
-
+//        SmartAPITicker smartAPITicker = new SmartAPITicker();
+//        SmartWebsocket smartWebsocket = new SmartWebsocket();
         try {
             smartStreamTicker.connect();
             System.out.println("Connection open: " + smartStreamTicker.isConnectionOpen());
@@ -33,7 +36,7 @@ public class BrokerStreamingService {
             //tokenSet.add(new TokenID(ExchangeType.NSE_CM, "26009")); // NIFTY BANK
             //tokenSet.add(new TokenID(ExchangeType.BSE_CM, "19000"));
 
-            smartStreamTicker.subscribe(SmartStreamSubsMode.LTP, tokenSet);
+            smartStreamTicker.subscribe(SmartStreamSubsMode.QUOTE, tokenSet);
 
 
             // Keep the connection open

@@ -2,15 +2,22 @@ package org.market.trade.component;
 
 import com.angelbroking.smartapi.smartstream.models.*;
 import com.angelbroking.smartapi.smartstream.ticker.SmartStreamListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BrokerStreamListener implements SmartStreamListener {
 
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
     @Override
     public void onLTPArrival(LTP ltp) {
-        System.out.println("LTP value: " + ltp.getExchangeType());
-        System.out.println("LTP: " + ltp.getLastTradedPrice());
+        //System.out.println("LTP value: " + ltp.getExchangeType());
+        //System.out.println("LTP: " + ltp.getLastTradedPrice());
+
+        messagingTemplate.convertAndSend("/stock/ltp", ltp.getLastTradedPrice());
     }
 
     @Override
@@ -29,7 +36,9 @@ public class BrokerStreamListener implements SmartStreamListener {
     }
 
     @Override
-    public void onQuoteArrival(Quote quote) { }
+    public void onQuoteArrival(Quote quote) {
+        System.out.println("quote--->"+quote);
+    }
 
     @Override
     public void onSnapQuoteArrival(SnapQuote snapQuote) { }
