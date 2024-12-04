@@ -17,19 +17,23 @@ public class BrokerAuthService {
         this.dotenv = dotenv;
     }
 
-    public User login() {
-        String clientId = dotenv.get("CLIENT_ID");
-        String password = dotenv.get("ANGLE_ONE_MPIN");
+    public User authenticate(String clientId, String mpin)  {
+        //String clientId = dotenv.get("CLIENT_ID");
+        //String password = dotenv.get("ANGLE_ONE_MPIN");
         String authenticatorKey = dotenv.get("AUTHENTICATOR_KEY");
-
+        System.out.println("clientId:"+clientId+"mpin:"+mpin);
         // Generate TOTP
         GoogleAuthenticator gAuth = new GoogleAuthenticator();
-        String totp = String.valueOf(gAuth.getTotpPassword(authenticatorKey));
+        int totp = gAuth.getTotpPassword(authenticatorKey);
         System.out.println("TOTP: " + totp);
+        // Format the integer as a zero-padded 6-digit string
+        String formattedTotp = String.format("%06d", totp);
+        System.out.println("formattedTotp: " + formattedTotp);
 
         // Login and return user
         try {
-            User user = smartConnect.generateSession(clientId, password, totp);
+            User user = smartConnect.generateSession(clientId, mpin, formattedTotp);
+            System.out.println("User--->"+user);
             smartConnect.setAccessToken(user.getAccessToken());
             smartConnect.setUserId(user.getUserId());
             return user;

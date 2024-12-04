@@ -14,8 +14,9 @@ public class BrokerStreamListener implements SmartStreamListener {
 
     @Override
     public void onLTPArrival(LTP ltp) {
-        //System.out.println("LTP value: " + ltp.getExchangeType());
-        //System.out.println("LTP: " + ltp.getLastTradedPrice());
+//        System.out.println("--->"+ltp.getSequenceNumber());
+//        System.out.println("LTP value: " + ltp.getExchangeType());
+        System.out.println("LTP: " + ltp.getLastTradedPrice());
 
         messagingTemplate.convertAndSend("/stock/ltp", ltp.getLastTradedPrice());
     }
@@ -38,6 +39,7 @@ public class BrokerStreamListener implements SmartStreamListener {
     @Override
     public void onQuoteArrival(Quote quote) {
         System.out.println("quote--->"+quote);
+        messagingTemplate.convertAndSend("/stock/quote",quote);
     }
 
     @Override
